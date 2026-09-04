@@ -30,6 +30,27 @@
 html { scroll-behavior:smooth; }
 body { margin:0; background:#FFFFFF; font-family:'Karla',sans-serif; color:#2B2E28; }
 a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
+
+/* --- topo responsivo (celular) --- */
+@media (max-width:860px){
+  .dc-topbar{justify-content:center !important; font-size:11.5px !important; padding:6px 4vw !important;}
+  .dc-topbar .dc-so-desktop{display:none !important;}
+  .dc-header{flex-wrap:wrap !important; gap:10px 12px !important; padding:10px 4vw !important;}
+  .dc-marca{order:1; flex:1 1 auto; min-width:0;}
+  .dc-cta-topo{order:2; flex:0 0 auto; font-size:13px !important; padding:10px 16px !important;}
+  .dc-nav{order:3; flex:1 0 100%; gap:20px !important; flex-wrap:nowrap !important; overflow-x:auto;
+          font-size:13px !important; padding-bottom:2px; scrollbar-width:none; -ms-overflow-style:none;
+          -webkit-overflow-scrolling:touch;}
+  .dc-nav::-webkit-scrollbar{display:none;}
+  .dc-nav a{white-space:nowrap; flex:0 0 auto;}
+}
+@media (max-width:420px){
+  .dc-marca svg{width:34px !important; height:34px !important;}
+  .dc-marca-nome{font-size:18px !important;}
+  .dc-marca-sub{display:none !important;}
+  .dc-cta-topo{font-size:12.5px !important; padding:9px 14px !important;}
+  .dc-nav{gap:16px !important;}
+}
 </style>
 
 </head>
@@ -41,29 +62,29 @@ a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
     
   
 
-  <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; padding:7px 4vw; background:#FFFFFF; border-bottom:1px solid rgba(123,128,118,.15); font-size:12.5px; color:#7B8076;">
+  <div class="dc-topbar" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; padding:7px 4vw; background:#FFFFFF; border-bottom:1px solid rgba(123,128,118,.15); font-size:12.5px; color:#7B8076;">
     <div style="display:flex; gap:18px; flex-wrap:wrap;">
       <span>✆ Central de atendimento: <strong style="color:#0A5F2C;">WhatsApp +55 (68) 9 9223-7929</strong></span>
-      <span>Atendimento 100% digital</span>
+      <span class="dc-so-desktop">Atendimento 100% digital</span>
     </div>
-    <span>Rio Branco — Acre</span>
+    <span class="dc-so-desktop">Rio Branco — Acre</span>
   </div>
 
-  <div style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 4vw; background:rgba(255,255,255,.96); border-bottom:1px solid rgba(123,128,118,.12);">
-    <div style="display:flex; align-items:center; gap:10px;">
+  <div class="dc-header" style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 4vw; background:rgba(255,255,255,.96); border-bottom:1px solid rgba(123,128,118,.12);">
+    <div class="dc-marca" style="display:flex; align-items:center; gap:10px;">
       <svg width="40" height="40" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="#0B8A3D"></circle><circle cx="100" cy="100" r="56" fill="#FFCB05"></circle><path d="M 81 30 A 72 72 0 1 1 30 81" fill="none" stroke="#FFF8E7" stroke-width="8" stroke-linecap="round"></path><g transform="translate(49,49) rotate(45) scale(1.75) translate(-12,-12)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#FFF8E7"></path></g><g transform="translate(100,100) scale(0.40)"><polygon points="0,-100 23.5,-32.4 95.1,-30.9 38,12.4 58.8,80.9 0,40 -58.8,80.9 -38,12.4 -95.1,-30.9 -23.5,-32.4" fill="#E4322B"></polygon></g></svg>
       <div style="display:flex; flex-direction:column;">
-        <div style="font-family:'Baloo 2',sans-serif; font-weight:800; font-size:20px; line-height:1;"><span style="color:#0A5F2C;">Decola</span> <span style="color:#0B8A3D;">Acre</span></div>
-        <div style="font-weight:700; font-size:6.5px; letter-spacing:.2em; color:#7B8076; margin-top:2px;">VIAGENS SAINDO DE RIO BRANCO</div>
+        <div class="dc-marca-nome" style="font-family:'Baloo 2',sans-serif; font-weight:800; font-size:20px; line-height:1; white-space:nowrap;"><span style="color:#0A5F2C;">Decola</span> <span style="color:#0B8A3D;">Acre</span></div>
+        <div class="dc-marca-sub" style="font-weight:700; font-size:6.5px; letter-spacing:.2em; color:#7B8076; margin-top:2px; white-space:nowrap;">VIAGENS SAINDO DE RIO BRANCO</div>
       </div>
     </div>
-    <div style="display:flex; gap:26px; font-weight:700; font-size:14px; flex-wrap:wrap;">
+    <div class="dc-nav" style="display:flex; gap:26px; font-weight:700; font-size:14px; flex-wrap:wrap;">
       <a href="#pacotes" style="color:#2B2E28; display:flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="2.5" fill="none" stroke="#0B8A3D" stroke-width="2"></rect><path d="M 9 8 V 6 a 3 3 0 0 1 6 0 v 2" fill="none" stroke="#0B8A3D" stroke-width="2"></path></svg>Pacotes</a>
       <a href="#agenda" style="color:#2B2E28; display:flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5" fill="none" stroke="#0B8A3D" stroke-width="2"></rect><path d="M 4 10 H 20 M 8 5 V 3 M 16 5 V 3" stroke="#0B8A3D" stroke-width="2" fill="none"></path></svg>Saídas em grupo</a>
       <a href="#como-funciona" style="color:#2B2E28; display:flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#0B8A3D" stroke-width="2"></circle><path d="M 12 7 V 12 L 16 14" stroke="#0B8A3D" stroke-width="2" fill="none" stroke-linecap="round"></path></svg>Como funciona</a>
       <a href="#perguntas" style="color:#2B2E28; display:flex; align-items:center; gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#0B8A3D" stroke-width="2"></circle><path d="M 9.5 9.5 a 2.5 2.5 0 1 1 3.5 2.3 c -.8.35 -1 .9 -1 1.7 M 12 17 h .01" stroke="#0B8A3D" stroke-width="2" fill="none" stroke-linecap="round"></path></svg>Perguntas</a>
     </div>
-    <a href="https://wa.me/5568992237929" style="background:#E4322B; color:#FFF8E7; font-weight:700; font-size:14px; padding:11px 20px; border-radius:99px; transition:transform .2s ease; white-space:nowrap;">Falar no WhatsApp</a>
+    <a class="dc-cta-topo" href="https://wa.me/5568992237929" style="background:#E4322B; color:#FFF8E7; font-weight:700; font-size:14px; padding:11px 20px; border-radius:99px; transition:transform .2s ease; white-space:nowrap;">Falar no WhatsApp</a>
   </div>
 
   <div style="background:#FFCB05; padding:18px 4vw 26px;">
