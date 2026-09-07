@@ -397,7 +397,7 @@ function carregar(){
 var mapa=null, camadaDin=null;
 function iniciaMapa(){
   mapa=L.map('mapa',{scrollWheelZoom:false});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:18}).addTo(mapa);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:18}).addTo(mapa);
   L.polyline(ROTA,{color:'#0B8A3D',weight:4,opacity:.85,dashArray:'1 0'}).addTo(mapa);
   PLANEJADOS.forEach(function(n){ var p=achaLugar(n); if(!p) return; L.marker([p[0],p[1]],{icon:L.divIcon({className:'',html:'<div class="mk-plan"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(mapa).bindTooltip(n,{direction:'top',offset:[0,-6]}); });
   camadaDin=L.layerGroup().addTo(mapa);
