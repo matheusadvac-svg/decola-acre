@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Da Selva aos Andes — Rio Branco → Cusco de carro, ao vivo | Decola Acre</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="Acompanhe ao vivo a viagem de carro de Rio Branco a Cusco: onde estamos agora, diário de bordo, quanto está custando de verdade e como fazer a mesma viagem.">
+<link rel="canonical" href="https://decolaacre.com.br/peru">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Da Selva aos Andes — Rio Branco → Cusco de carro, ao vivo">
+<meta property="og:description" content="Onde estamos agora, diário de bordo, custo real e como fazer a mesma viagem. Uma viagem particular contada em tempo real pela Decola Acre.">
+<meta property="og:image" content="https://decolaacre.com.br/og-decola-acre.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+<style>
+:root{
+  --verde:#0B8A3D; --verde-esc:#0A5F2C; --amarelo:#FFCB05; --vermelho:#E4322B;
+  --creme:#FFF8E7; --grafite:#2B2E28; --cinza:#7B8076; --linha:rgba(123,128,118,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;font-family:'Karla',sans-serif;color:var(--grafite);overflow-x:hidden;line-height:1.5}
+a{color:var(--verde-esc);text-decoration:none}
+a:hover{color:var(--verde)}
+h1,h2,h3,.baloo{font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1.1;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 4vw}
+@keyframes pulse-cta{0%,100%{box-shadow:0 0 0 0 rgba(228,50,43,.45)}55%{box-shadow:0 0 0 14px rgba(228,50,43,0)}}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* topo */
+.dc-topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:7px 4vw;background:#fff;border-bottom:1px solid var(--linha);font-size:12.5px;color:var(--cinza)}
+.dc-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 4vw;background:rgba(255,255,255,.96);border-bottom:1px solid var(--linha)}
+.dc-marca{display:flex;align-items:center;gap:10px}
+.dc-marca-nome{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:20px;line-height:1}
+.dc-marca-sub{font-weight:700;font-size:9px;letter-spacing:.18em;color:var(--cinza);margin-top:3px}
+.dc-nav{display:flex;gap:26px;font-weight:700;font-size:14px;flex-wrap:wrap}
+.dc-nav a{color:var(--grafite);white-space:nowrap}
+.dc-cta-topo{background:var(--vermelho);color:var(--creme);font-weight:700;font-size:14px;padding:11px 20px;border-radius:99px;white-space:nowrap;animation:pulse-cta 2.6s ease-in-out 3.4s infinite}
+.dc-cta-topo:hover{color:#fff}
+@media (max-width:860px){
+  .dc-topbar{justify-content:center;font-size:11.5px;padding:6px 4vw}
+  .dc-so-desktop{display:none}
+  .dc-header{flex-wrap:wrap;gap:10px 12px;padding:10px 4vw}
+  .dc-marca{order:1;flex:1 1 auto;min-width:0}
+  .dc-cta-topo{order:2;flex:0 0 auto;font-size:13px;padding:10px 16px}
+  .dc-nav{order:3;flex:1 0 100%;gap:20px;flex-wrap:nowrap;overflow-x:auto;font-size:13px;padding-bottom:2px;scrollbar-width:none}
+  .dc-nav::-webkit-scrollbar{display:none}
+}
+@media (max-width:420px){
+  .dc-marca svg{width:34px;height:34px}
+  .dc-marca-nome{font-size:18px}
+  .dc-marca-sub{display:none}
+  .dc-cta-topo{font-size:12.5px;padding:9px 14px}
+  .dc-nav{gap:16px}
+}
+
+/* hero */
+.hero{position:relative;background:var(--verde-esc);color:var(--creme);overflow:hidden}
+.hero .wrap{position:relative;padding-top:48px;padding-bottom:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:end}
+.hero-sol{position:absolute;right:-120px;top:-140px;width:420px;height:420px;opacity:.16;pointer-events:none}
+.pill-live{display:inline-flex;align-items:center;gap:8px;background:var(--creme);color:var(--vermelho);font-weight:700;font-size:12.5px;letter-spacing:.12em;padding:6px 14px 6px 10px;border-radius:99px}
+.dot{position:relative;width:10px;height:10px;border-radius:50%;background:var(--vermelho);display:inline-block}
+.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--vermelho);animation:ping 1.6s ease-out infinite}
+.hero h1{font-size:clamp(34px,5.4vw,64px);margin:16px 0 8px}
+.hero h1 .gr{color:var(--amarelo)}
+.hero p{font-size:clamp(15px,1.6vw,18px);max-width:560px;opacity:.95;margin:0}
+.hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.hm{background:rgba(255,248,231,.08);border:1px solid rgba(255,248,231,.18);border-radius:14px;padding:12px 14px}
+.hm .k{font-size:11px;letter-spacing:.14em;font-weight:700;opacity:.75}
+.hm .v{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;line-height:1.1;margin-top:2px}
+.hm .s{font-size:12px;opacity:.8}
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr;gap:22px;padding-top:32px}.hero-meta{grid-template-columns:repeat(2,1fr)}}
+
+/* faixa ao vivo */
+.live{background:var(--amarelo);color:var(--verde-esc);padding:14px 4vw;font-weight:700;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:center;text-align:center}
+.live small{font-weight:400;opacity:.8}
+
+/* seções */
+section{padding:56px 0}
+section.alt{background:var(--creme)}
+.sec-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.sec-h h2{font-size:clamp(26px,3.2vw,38px);color:var(--verde-esc)}
+.sec-h h2 .grifo{position:relative;display:inline-block}
+.sec-h h2 .grifo::before{content:"";position:absolute;left:-2px;right:-2px;bottom:4px;height:38%;background:var(--amarelo);z-index:-1;border-radius:3px}
+.sec-h p{margin:0;color:var(--cinza);font-size:15px}
+
+/* mapa */
+#mapa{height:min(62vh,520px);border-radius:18px;overflow:hidden;border:1px solid var(--linha);box-shadow:0 10px 30px rgba(43,46,40,.12);z-index:1}
+.leaflet-container{font-family:'Karla',sans-serif}
+.mk-atual{width:22px;height:22px;border-radius:50%;background:var(--vermelho);border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);position:relative}
+.mk-atual::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:var(--vermelho);animation:ping 1.6s ease-out infinite;z-index:-1}
+.mk-feita{width:12px;height:12px;border-radius:50%;background:var(--verde);border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.3)}
+.mk-plan{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--verde);opacity:.9}
+.legenda{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--cinza);margin-top:12px}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.legenda i{display:inline-block;width:12px;height:12px;border-radius:50%}
+
+/* diário */
+.grid-diario{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;align-items:start}
+.card{background:#fff;border:1px solid var(--linha);border-radius:18px;padding:18px 20px;box-shadow:0 6px 20px rgba(43,46,40,.06)}
+.card .quando{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--cinza)}
+.card h3{font-size:20px;color:var(--verde-esc);margin:6px 0 6px}
+.card p{margin:0;font-size:15px}
+.card .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;padding:3px 9px;border-radius:99px;background:var(--creme);color:var(--verde-esc);margin-bottom:8px}
+.card.post{padding:0;overflow:hidden;border:none;box-shadow:none;background:transparent}
+.card.post .instagram-media{margin:0 !important;min-width:0 !important;width:100% !important;max-width:100% !important}
+.card.post .fallback{display:block;padding:18px 20px;border:1px solid var(--linha);border-radius:18px;background:#fff}
+.vazio{color:var(--cinza);font-size:15px;padding:24px;text-align:center;border:1.5px dashed var(--linha);border-radius:18px}
+
+/* custos */
+.custos{display:grid;grid-template-columns:1fr 1.4fr;gap:22px;align-items:start}
+.big{background:var(--verde-esc);color:var(--creme);border-radius:22px;padding:26px 26px 22px;position:relative;overflow:hidden}
+.big .k{font-size:12px;letter-spacing:.14em;font-weight:700;opacity:.8}
+.big .v{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(40px,6vw,58px);line-height:1;color:var(--amarelo);margin:6px 0 2px}
+.big .s{font-size:13.5px;opacity:.85}
+.big .pp{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,248,231,.2);font-size:14px}
+.big .pp b{font-family:'Baloo 2',sans-serif;font-size:22px}
+.cats{display:flex;flex-direction:column;gap:10px}
+.cat{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:center;font-size:14.5px}
+.cat .nome{font-weight:700;color:var(--verde-esc);text-transform:capitalize}
+.cat .bar{height:12px;background:var(--creme);border-radius:99px;overflow:hidden;border:1px solid var(--linha)}
+.cat .bar i{display:block;height:100%;background:var(--verde);border-radius:99px;width:0;transition:width .8s ease}
+.cat .val{font-weight:700;white-space:nowrap}
+.nota{font-size:13px;color:var(--cinza);margin-top:14px;line-height:1.5}
+@media (max-width:760px){.custos{grid-template-columns:1fr}.cat{grid-template-columns:96px 1fr auto;font-size:13.5px}}
+
+/* roteiro */
+.dias{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.dia{background:#fff;border:1px solid var(--linha);border-radius:16px;padding:16px 18px;position:relative}
+.dia .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:13px;letter-spacing:.14em;color:var(--verde)}
+.dia h3{font-size:18px;margin:4px 0 6px;color:var(--verde-esc)}
+.dia p{margin:0;font-size:14px;color:var(--grafite)}
+.dia .alt{position:absolute;top:14px;right:14px;font-size:11.5px;font-weight:700;color:var(--cinza)}
+.dia.feito{border-color:var(--verde);background:linear-gradient(0deg,rgba(11,138,61,.06),rgba(11,138,61,.06)),#fff}
+.dia.hoje{border:2px solid var(--vermelho)}
+.dia.hoje .n::after{content:"  • HOJE";color:var(--vermelho)}
+
+/* como fazer */
+.faq details{border-bottom:1px solid var(--linha);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:16.5px;color:var(--verde-esc);list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:'Baloo 2',sans-serif;font-size:22px;line-height:1;color:var(--verde)}
+.faq details[open] summary::after{content:"–"}
+.faq .c{font-size:15px;padding:8px 0 4px;color:var(--grafite)}
+.faq ul{margin:6px 0 0 18px;padding:0}
+.faq li{margin:4px 0}
+.aviso{background:#fff;border-left:4px solid var(--amarelo);padding:12px 16px;border-radius:0 12px 12px 0;font-size:13.5px;color:var(--cinza);margin-top:22px}
+
+/* cta */
+.cta{position:relative;background:var(--amarelo);text-align:center;overflow:hidden}
+.cta h2{font-size:clamp(28px,3.6vw,44px);color:var(--verde-esc);max-width:720px;margin:0 auto}
+.cta p{font-size:17px;max-width:640px;margin:12px auto 22px}
+.btn{display:inline-block;background:var(--vermelho);color:var(--creme);font-weight:700;font-size:17px;padding:16px 34px;border-radius:99px;box-shadow:0 8px 22px rgba(43,46,40,.25);animation:pulse-cta 2.6s ease-in-out 1s infinite}
+.btn:hover{color:#fff}
+.btn2{display:inline-block;background:transparent;color:var(--verde-esc);font-weight:700;font-size:15px;padding:14px 26px;border-radius:99px;border:2px solid var(--verde-esc);margin-left:10px}
+@media (max-width:520px){.btn2{margin:10px 0 0}}
+
+/* rodapé */
+footer{display:flex;flex-direction:column;gap:18px;padding:48px 4vw;background:var(--verde-esc);color:var(--creme)}
+footer .l{display:flex;flex-wrap:wrap;gap:6px 28px;font-size:13.5px;opacity:.9}
+footer .m{font-size:11.5px;line-height:1.6;opacity:.6;max-width:900px}
+
+.wa-fixo{position:fixed;right:18px;bottom:18px;z-index:150;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(43,46,40,.35);animation:pulse-cta 2.6s ease-in-out 2s infinite}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<a class="wa-fixo" href="https://wa.me/5568992237929?text=Oi!%20Vi%20o%20di%C3%A1rio%20do%20Peru%20no%20site%20da%20Decola%20Acre%20e%20quero%20saber%20mais." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3z"/></svg>
+</a>
+
+<div class="dc-topbar">
+  <div style="display:flex;gap:18px;flex-wrap:wrap">
+    <span>✆ Central de atendimento: <strong style="color:#0A5F2C">WhatsApp +55 (68) 9 9223-7929</strong></span>
+    <span class="dc-so-desktop">Atendimento 100% digital</span>
+  </div>
+  <span class="dc-so-desktop">Rio Branco — Acre</span>
+</div>
+
+<div class="dc-header">
+  <a class="dc-marca" href="/">
+    <svg width="40" height="40" viewBox="0 0 200 200" style="animation:bob 3.5s ease-in-out infinite"><circle cx="100" cy="100" r="96" fill="#0B8A3D"/><circle cx="100" cy="100" r="56" fill="#FFCB05"/><path d="M 81 30 A 72 72 0 1 1 30 81" fill="none" stroke="#FFF8E7" stroke-width="8" stroke-linecap="round"/><g transform="translate(49,49) rotate(45) scale(1.75) translate(-12,-12)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#FFF8E7"/></g><g transform="translate(100,100) scale(0.40)"><polygon points="0,-100 23.5,-32.4 95.1,-30.9 38,12.4 58.8,80.9 0,40 -58.8,80.9 -38,12.4 -95.1,-30.9 -23.5,-32.4" fill="#E4322B"/></g></svg>
+    <div>
+      <div class="dc-marca-nome"><span style="color:#0A5F2C">Decola</span> <span style="color:#0B8A3D">Acre</span></div>
+      <div class="dc-marca-sub">VIAGENS SAINDO DE RIO BRANCO</div>
+    </div>
+  </a>
+  <nav class="dc-nav">
+    <a href="#agora">Onde estamos</a>
+    <a href="#diario">Diário</a>
+    <a href="#custos">Quanto custa</a>
+    <a href="#roteiro">Roteiro</a>
+    <a href="#como-fazer">Como fazer</a>
+  </nav>
+  <a class="dc-cta-topo" href="https://wa.me/5568992237929?text=Oi!%20Vi%20o%20di%C3%A1rio%20do%20Peru%20no%20site%20e%20quero%20fazer%20essa%20viagem." target="_blank" rel="noopener">Quero ir também</a>
+</div>
+
+<header class="hero">
+  <svg class="hero-sol" viewBox="0 0 200 200"><circle cx="100" cy="100" r="56" fill="#FFCB05"/><path d="M 81 30 A 72 72 0 1 1 30 81" fill="none" stroke="#FFF8E7" stroke-width="8" stroke-linecap="round"/></svg>
+  <div class="wrap">
+    <div>
+      <span class="pill-live"><span class="dot"></span> AO VIVO · SETEMBRO 2026</span>
+      <h1>Da Selva <span class="gr">aos Andes</span></h1>
+      <p><strong>Rio Branco → Cusco de carro.</strong> Uns 2.000 km por trecho, 8 dias, do nível do mar a 4.700 metros. A gente foi na frente pra te mostrar como é — onde para, quanto custa e o que precisa levar.</p>
+    </div>
+    <div class="hero-meta" id="hero-meta">
+      <div class="hm"><div class="k">DIA</div><div class="v" id="m-dia">—</div><div class="s">de 8</div></div>
+      <div class="hm"><div class="k">AGORA EM</div><div class="v" id="m-local" style="font-size:19px">—</div><div class="s" id="m-quando">carregando…</div></div>
+      <div class="hm"><div class="k">ALTITUDE</div><div class="v" id="m-alt">—</div><div class="s">metros</div></div>
+      <div class="hm"><div class="k">KM RODADOS</div><div class="v" id="m-km">—</div><div class="s">desde Rio Branco</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="live" id="live">
+  <span id="live-txt">Carregando o diário…</span>
+  <small id="live-upd"></small>
+</div>
+
+<section id="agora">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Onde a gente <span class="grifo">está agora</span></h2><p>Atualizado da estrada, direto do celular.</p></div>
+    <div id="mapa" class="reveal"></div>
+    <div class="legenda">
+      <span><i style="background:#E4322B"></i> agora</span>
+      <span><i style="background:#0B8A3D"></i> já passou</span>
+      <span><i style="background:#fff;border:2px solid #0B8A3D;width:10px;height:10px"></i> planejado</span>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="diario">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Diário <span class="grifo">de bordo</span></h2><p>Fotos, vídeos e o que aconteceu em cada parada. Mais recente primeiro.</p></div>
+    <div class="grid-diario" id="grid-diario"><div class="vazio">Carregando…</div></div>
+    <p style="text-align:center;margin-top:22px;font-size:14.5px;color:#7B8076">Tudo em tempo real também no Instagram <a href="https://instagram.com/decolaacre" target="_blank" rel="noopener"><strong>@decolaacre</strong></a>.</p>
+  </div>
+</section>
+
+<section id="custos">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Quanto está custando <span class="grifo">de verdade</span></h2><p>Gasto real do casal, lançado na hora.</p></div>
+    <div class="custos">
+      <div class="big reveal">
+        <div class="k">TOTAL ATÉ AGORA · 2 PESSOAS</div>
+        <div class="v" id="c-total">R$ 0</div>
+        <div class="s" id="c-n">nenhum gasto lançado ainda</div>
+        <div class="pp">por pessoa: <b id="c-pp">R$ 0</b></div>
+      </div>
+      <div>
+        <div class="cats" id="c-cats"></div>
+        <div class="nota">Valores convertidos pelo câmbio que a gente pegou na viagem (<span id="c-cambio">—</span>). Não inclui o que já tínhamos em casa (carro, seguro anual, malas). É o custo de uma viagem particular, sem agência e sem patrocínio — serve de referência, não de orçamento.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="roteiro">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>O roteiro <span class="grifo">planejado</span></h2><p>8 dias, saindo de Rio Branco em 7 de setembro. Sem Machu Picchu desta vez — de propósito.</p></div>
+    <div class="dias" id="dias"></div>
+  </div>
+</section>
+
+<section id="como-fazer">
+  <div class="wrap">
+    <div class="sec-h reveal"><h2>Como fazer <span class="grifo">essa viagem</span></h2><p>O que a gente precisou resolver antes de sair. Vai ganhando detalhe conforme a viagem anda.</p></div>
+    <div class="faq">
+      <details open>
+        <summary>Documentos pra cruzar a fronteira de carro</summary>
+        <div class="c">
+          <ul>
+            <li><strong>Pessoas:</strong> RG em bom estado ou passaporte (brasileiro entra no Peru com RG); carimbo de saída na Polícia Federal em Assis Brasil e de entrada na Migraciones em Iñapari.</li>
+            <li><strong>Carro:</strong> CNH, CRLV impresso e em dia; <strong>SOAT</strong> (seguro obrigatório peruano), que se compra ali em Iñapari; e o <strong>Certificado de Internación Temporal</strong> na SUNAT — abre na ida e encerra na volta.</li>
+            <li><strong>Saúde:</strong> vacina de febre amarela (leve o certificado).</li>
+            <li><strong>Dinheiro:</strong> soles em espécie pra combustível e pedágio no interior; cartão funciona bem em Puerto Maldonado e Cusco.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>A estrada: BR-317 + Interoceânica</summary>
+        <div class="c">Rio Branco → Brasiléia → Assis Brasil (BR-317, asfalto). Cruza pra Iñapari e pega a Interoceânica Sul: Puerto Maldonado (selva), depois a subida por Mazuko, Quincemil e Marcapata até o <strong>Abra Pirhuayani, a 4.725 m</strong>, e desce pra Cusco. São dois dias inteiros de estrada em cada sentido — vale dormir em Puerto Maldonado na ida.</div>
+      </details>
+      <details>
+        <summary>Altitude: o que a gente está fazendo</summary>
+        <div class="c">Cusco fica a 3.400 m. Dia de chegada é dia de calma: hidratação, comida leve, chá de coca, nada de escada correndo. Passeios pesados só a partir do terceiro dia. Quem tem condição de saúde conversa com o médico antes.</div>
+      </details>
+      <details>
+        <summary>Onde ficar</summary>
+        <div class="c">A gente escolheu hospedagem com <strong>estacionamento</strong> e vista da cidade — em Cusco, um apartamento com varanda pra ficar 6 noites. Conforme a viagem anda, contamos o que valeu a pena no diário.</div>
+      </details>
+      <details>
+        <summary>Dá pra fazer com a Decola Acre?</summary>
+        <div class="c">Essa é uma viagem particular nossa — a gente foi na frente justamente pra saber o que funciona antes de montar qualquer coisa pra você. Se você quer ir pro Peru, chama no WhatsApp que a gente conversa sobre o que já dá pra fazer e te avisa quando o roteiro completo estiver pronto.</div>
+      </details>
+    </div>
+    <div class="aviso">Informações de uma viagem particular feita em setembro de 2026, sem patrocínio. Regras de fronteira, seguro e documentação mudam — confirme sempre nos órgãos oficiais (Polícia Federal, Migraciones e SUNAT) antes de viajar.</div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2 class="reveal">Quer fazer essa viagem?</h2>
+    <p class="reveal">Chama no WhatsApp. A gente te conta o que aprendeu na estrada e te avisa quando o roteiro completo, com tudo que deu certo, estiver pronto.</p>
+    <div class="reveal">
+      <a class="btn" href="https://wa.me/5568992237929?text=Oi!%20Vi%20o%20di%C3%A1rio%20do%20Peru%20no%20site%20e%20quero%20fazer%20essa%20viagem." target="_blank" rel="noopener">Quero fazer essa viagem</a>
+      <a class="btn2" href="https://wa.me/5568992237929?text=Oi!%20Me%20avisa%20quando%20o%20guia%20completo%20do%20Peru%20de%20carro%20sair%3F" target="_blank" rel="noopener">Me avisa quando o guia sair</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex;align-items:center;gap:12px">
+    <svg width="38" height="38" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="#FFF8E7"/><circle cx="100" cy="100" r="56" fill="#FFCB05"/><path d="M 81 30 A 72 72 0 1 1 30 81" fill="none" stroke="#0A5F2C" stroke-width="8" stroke-linecap="round"/><g transform="translate(49,49) rotate(45) scale(1.75) translate(-12,-12)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#0A5F2C"/></g><g transform="translate(100,100) scale(0.40)"><polygon points="0,-100 23.5,-32.4 95.1,-30.9 38,12.4 58.8,80.9 0,40 -58.8,80.9 -38,12.4 -95.1,-30.9 -23.5,-32.4" fill="#E4322B"/></g></svg>
+    <div class="baloo" style="font-size:20px">Decola <span style="color:#FFCB05">Acre</span></div>
+  </div>
+  <div class="l">
+    <span>DECOLA ACRE VIAGENS E TURISMO LTDA · CNPJ 68.968.919/0001-07</span>
+    <span>Rio Branco — Acre · Atendimento 100% digital</span>
+    <span>WhatsApp +55 (68) 9 9223-7929 · Instagram @decolaacre · decolaacre@gmail.com</span>
+  </div>
+  <div class="m">Esta página relata uma viagem particular e não constitui oferta de pacote turístico. Condições de qualquer serviço são informadas por escrito antes da contratação. Direito de arrependimento em 7 dias, art. 49 do CDC.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ============ CONFIG ============ */
+var SHEET_ID = '1hBGbFVP4e338vGEc4s_7Dc7qGKVTaRjcL4oNOBJ-Cmk';
+var SHEET_GID = '1298965706';
+var REFRESH_MS = 60000;
+var TOTAL_DIAS = 8;
+
+/* lugares conhecidos: [lat, lng, altitude] — o Matheus só digita o nome */
+var LUGARES = {
+  'rio branco':[-9.975,-67.81,153], 'senador guiomard':[-10.15,-67.74,180], 'capixaba':[-10.57,-67.68,190],
+  'xapuri':[-10.65,-68.50,170], 'brasileia':[-10.99,-68.75,190], 'epitaciolandia':[-11.02,-68.74,190],
+  'assis brasil':[-10.94,-69.57,230], 'inapari':[-10.955,-69.58,240], 'iberia':[-11.35,-69.55,260],
+  'puerto maldonado':[-12.59,-69.19,183], 'mazuko':[-13.10,-70.37,400], 'quincemil':[-13.23,-70.75,620],
+  'marcapata':[-13.50,-70.95,3100], 'abra pirhuayani':[-13.60,-71.10,4725], 'pirhuayani':[-13.60,-71.10,4725],
+  'ocongate':[-13.62,-71.39,3550], 'urcos':[-13.69,-71.63,3150], 'andahuaylillas':[-13.67,-71.67,3120],
+  'tipon':[-13.57,-71.78,3400], 'cusco':[-13.52,-71.97,3400], 'pisac':[-13.42,-71.85,2970],
+  'ollantaytambo':[-13.26,-72.26,2790], 'chinchero':[-13.39,-72.05,3760], 'moray':[-13.33,-72.20,3500],
+  'maras':[-13.33,-72.15,3300], 'urubamba':[-13.31,-72.12,2870], 'vinicunca':[-13.87,-71.30,5030],
+  'montanha colorida':[-13.87,-71.30,5030], 'rainbow mountain':[-13.87,-71.30,5030], 'sacsayhuaman':[-13.51,-71.98,3700],
+  'laguna humantay':[-13.42,-72.58,4200], 'humantay':[-13.42,-72.58,4200]
+};
+/* rota principal (polyline) */
+var ROTA = [[-9.975,-67.81],[-10.15,-67.74],[-10.57,-67.68],[-10.65,-68.50],[-10.99,-68.75],[-10.94,-69.57],[-10.955,-69.58],[-11.35,-69.55],[-12.59,-69.19],[-13.10,-70.37],[-13.23,-70.75],[-13.50,-70.95],[-13.60,-71.10],[-13.62,-71.39],[-13.69,-71.63],[-13.52,-71.97]];
+var PLANEJADOS = ['Rio Branco','Brasiléia','Assis Brasil','Iñapari','Puerto Maldonado','Quincemil','Abra Pirhuayani','Ocongate','Cusco','Pisac','Ollantaytambo','Vinicunca'];
+
+var ROTEIRO = [
+  {d:1,t:'Rio Branco → Puerto Maldonado',p:'Saída 8h pela BR-317. Carimbos em Assis Brasil e Iñapari, SOAT e SUNAT na fronteira. Noite na selva peruana.',a:'183 m'},
+  {d:2,t:'Puerto Maldonado → Cusco',p:'O dia mais longo: sobe da selva até o Abra Pirhuayani (4.725 m) e desce pra Cusco. Chegar com luz do dia.',a:'4.725 m'},
+  {d:3,t:'Aclimatação em Cusco',p:'Dia leve: centro histórico, Plaza de Armas, San Pedro, muita água e chá de coca.',a:'3.400 m'},
+  {d:4,t:'Vale Sagrado',p:'Pisac, Urubamba e Ollantaytambo, de carro, num bate-volta a partir de Cusco.',a:'2.800 m'},
+  {d:5,t:'Chinchero, Moray e Maras',p:'Terraços circulares, salinas e tecelagem. Volta pra Cusco no fim da tarde.',a:'3.700 m'},
+  {d:6,t:'Vinicunca ou dia livre',p:'A Montanha Colorida (5.000 m) se o corpo estiver bem — senão, Sacsayhuamán e mercado.',a:'5.030 m'},
+  {d:7,t:'Cusco → Puerto Maldonado (ou direto)',p:'Parada em Tipón e Andahuaylillas no caminho. Decide na hora se dorme em Puerto Maldonado ou emenda.',a:'183 m'},
+  {d:8,t:'Puerto Maldonado → Rio Branco',p:'Encerra a internação temporária do carro na SUNAT, carimbo de saída, e volta pra casa.',a:'153 m'}
+];
+
+/* ============ UTIL ============ */
+function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); }
+function num(x){ if(x===null||x===undefined||x==='') return null; if(typeof x==='number') return x; var s=String(x).trim().replace(/[^\d,.\-]/g,''); if(s.indexOf(',')>-1){ s=s.replace(/\./g,'').replace(',','.'); } var n=parseFloat(s); return isNaN(n)?null:n; }
+function brl(n){ return 'R$ '+Math.round(n).toLocaleString('pt-BR'); }
+function esc(s){ return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function achaLugar(nome){ var n=norm(nome); if(!n) return null; if(LUGARES[n]) return LUGARES[n]; var best=null; Object.keys(LUGARES).forEach(function(k){ if(n.indexOf(k)>-1 && (!best||k.length>best.length)) best=k; }); return best?LUGARES[best]:null; }
+function fmtQuando(f){ if(!f) return ''; var m=String(f).match(/(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{2}):(\d{2}))?/); if(m) return m[3]+'/'+m[2]+(m[4]?' · '+m[4]+'h'+m[5]:''); return f; }
+
+/* ============ LEITURA DA PLANILHA ============ */
+function carregar(){
+  var u='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&gid='+SHEET_GID+'&headers=1&_='+Date.now();
+  return fetch(u).then(function(r){return r.text();}).then(function(t){
+    var j=JSON.parse(t.slice(t.indexOf('(')+1,t.lastIndexOf(')')));
+    var cols=j.table.cols.map(function(c){return norm(c.label||c.id);});
+    var linhas=[];
+    (j.table.rows||[]).forEach(function(r){
+      var o={}; (r.c||[]).forEach(function(c,i){ if(!c) return; o[cols[i]]=(c.f!==undefined&&c.f!==null)?c.f:c.v; o[cols[i]+'_v']=c.v; });
+      if(!o.tipo) return;
+      o.tipo=norm(o.tipo);
+      linhas.push(o);
+    });
+    return linhas;
+  });
+}
+
+/* ============ MAPA ============ */
+var mapa=null, camadaDin=null;
+function iniciaMapa(){
+  mapa=L.map('mapa',{scrollWheelZoom:false});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:18}).addTo(mapa);
+  L.polyline(ROTA,{color:'#0B8A3D',weight:4,opacity:.85,dashArray:'1 0'}).addTo(mapa);
+  PLANEJADOS.forEach(function(n){ var p=achaLugar(n); if(!p) return; L.marker([p[0],p[1]],{icon:L.divIcon({className:'',html:'<div class="mk-plan"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(mapa).bindTooltip(n,{direction:'top',offset:[0,-6]}); });
+  camadaDin=L.layerGroup().addTo(mapa);
+  mapa.fitBounds(L.latLngBounds(ROTA).pad(0.12));
+}
+
+/* ============ RENDER ============ */
+function render(linhas){
+  var config={}; linhas.filter(function(l){return l.tipo==='config';}).forEach(function(l){ config[norm(l.titulo)]=num(l.valor)||num(l.texto); });
+  var cambio={brl:1,pen:config['cambio pen']||1.5,usd:config['cambio usd']||5.4};
+
+  var paradas=linhas.filter(function(l){return l.tipo==='parada';});
+  var eventos=linhas.filter(function(l){return l.tipo==='parada'||l.tipo==='post'||l.tipo==='nota';});
+  var gastos=linhas.filter(function(l){return l.tipo==='gasto';});
+
+  /* --- topo / ao vivo --- */
+  var atual=paradas[paradas.length-1];
+  if(atual){
+    var lug=achaLugar(atual.titulo)||[num(atual.lat),num(atual.lng),num(atual.alt_m)];
+    var lat=num(atual.lat)!==null?num(atual.lat):lug&&lug[0], lng=num(atual.lng)!==null?num(atual.lng):lug&&lug[1];
+    var alt=num(atual.alt_m)!==null?num(atual.alt_m):(lug?lug[2]:null);
+    var dia=num(atual.dia);
+    document.getElementById('m-dia').textContent=dia!==null?dia:'—';
+    document.getElementById('m-local').textContent=atual.titulo||'—';
+    document.getElementById('m-quando').textContent=fmtQuando(atual.quando)||'';
+    document.getElementById('m-alt').textContent=alt!==null?Math.round(alt).toLocaleString('pt-BR'):'—';
+    var km=num(atual.km); document.getElementById('m-km').textContent=km!==null?Math.round(km).toLocaleString('pt-BR'):'—';
+    var chegou=dia!==null&&dia>=TOTAL_DIAS&&norm(atual.titulo).indexOf('rio branco')>-1;
+    document.getElementById('live-txt').innerHTML=(dia===0?'🚗 Saída marcada — ':chegou?'🏁 Chegamos! — ':'🔴 AO VIVO — ')+'<strong>'+esc(atual.titulo)+'</strong>'+(atual.texto?' · '+esc(atual.texto):'');
+    document.getElementById('live-upd').textContent='atualizado '+fmtQuando(atual.quando);
+
+    /* mapa dinâmico */
+    try { if(camadaDin){ camadaDin.clearLayers();
+    var pts=[];
+    paradas.forEach(function(p,i){
+      var l=achaLugar(p.titulo); var la=num(p.lat)!==null?num(p.lat):(l&&l[0]); var ln=num(p.lng)!==null?num(p.lng):(l&&l[1]);
+      if(la===null||ln===null||la===undefined||ln===undefined) return;
+      pts.push([la,ln]);
+      var ultimo=(i===paradas.length-1);
+      var ic=L.divIcon({className:'',html:'<div class="'+(ultimo?'mk-atual':'mk-feita')+'"></div>',iconSize:ultimo?[22,22]:[12,12],iconAnchor:ultimo?[11,11]:[6,6]});
+      var mk=L.marker([la,ln],{icon:ic,zIndexOffset:ultimo?1000:0}).addTo(camadaDin);
+      mk.bindPopup('<strong>'+esc(p.titulo)+'</strong><br><small>'+esc(fmtQuando(p.quando))+(num(p.dia)!==null?' · dia '+num(p.dia):'')+'</small>'+(p.texto?'<br>'+esc(p.texto):''));
+      if(ultimo) mk.bindTooltip('Estamos aqui',{permanent:true,direction:'top',offset:[0,-12],className:'tt-atual'}).openTooltip();
+    });
+    if(pts.length>1) L.polyline(pts,{color:'#E4322B',weight:5,opacity:.9}).addTo(camadaDin);
+    } } catch(e){ console.warn('mapa',e); }
+  } else {
+    document.getElementById('live-txt').textContent='A viagem começa dia 7 de setembro, às 8h, saindo de Rio Branco.';
+  }
+
+  /* --- roteiro (marca feito/hoje) --- */
+  var diaAtual=atual?num(atual.dia):null;
+  document.getElementById('dias').innerHTML=ROTEIRO.map(function(r){
+    var cls='dia'+(diaAtual!==null&&r.d<diaAtual?' feito':'')+(diaAtual!==null&&r.d===diaAtual?' hoje':'');
+    return '<div class="'+cls+'"><div class="n">DIA '+r.d+'</div><div class="alt">↑ '+r.a+'</div><h3>'+r.t+'</h3><p>'+r.p+'</p></div>';
+  }).join('');
+
+  /* --- diário --- */
+  var g=document.getElementById('grid-diario');
+  var ev=eventos.slice().reverse();
+  if(!ev.length){ g.innerHTML='<div class="vazio">O diário começa quando a gente pegar a estrada. Volta daqui a pouco!</div>'; }
+  else {
+    g.innerHTML=ev.map(function(e){
+      if(e.tipo==='post' && e.link){
+        var link=String(e.link).trim();
+        var isIg=/instagram\.com\/(p|reel|reels|tv)\//i.test(link);
+        if(isIg){
+          var perm=link.split('?')[0]; if(perm.slice(-1)!=='/') perm+='/';
+          return '<div class="card post"><blockquote class="instagram-media" data-instgrm-permalink="'+esc(perm)+'" data-instgrm-version="14" data-instgrm-captioned><a class="fallback" href="'+esc(perm)+'" target="_blank" rel="noopener">'+(e.titulo?'<strong>'+esc(e.titulo)+'</strong><br>':'')+'Ver no Instagram →</a></blockquote></div>';
+        }
+        return '<div class="card"><div class="quando">'+esc(fmtQuando(e.quando))+'</div><span class="tag">VÍDEO / POST</span><h3>'+esc(e.titulo||'Post')+'</h3>'+(e.texto?'<p>'+esc(e.texto)+'</p>':'')+'<p style="margin-top:10px"><a href="'+esc(link)+'" target="_blank" rel="noopener"><strong>Abrir →</strong></a></p></div>';
+      }
+      var tag=e.tipo==='parada'?'📍 PARADA'+(num(e.dia)!==null?' · DIA '+num(e.dia):''):'✍️ NOTA';
+      return '<div class="card"><div class="quando">'+esc(fmtQuando(e.quando))+'</div><span class="tag">'+tag+'</span><h3>'+esc(e.titulo||'')+'</h3>'+(e.texto?'<p>'+esc(e.texto)+'</p>':'')+(e.link?'<p style="margin-top:10px"><a href="'+esc(e.link)+'" target="_blank" rel="noopener"><strong>Ver →</strong></a></p>':'')+'</div>';
+    }).join('');
+    processaInstagram();
+  }
+
+  /* --- custos --- */
+  var total=0, cats={};
+  gastos.forEach(function(x){
+    var v=num(x.valor); if(v===null) return;
+    var m=norm(x.moeda); var taxa=m.indexOf('pen')>-1||m.indexOf('sol')>-1?cambio.pen:(m.indexOf('usd')>-1||m.indexOf('dol')>-1?cambio.usd:1);
+    var r=v*taxa; total+=r;
+    var c=norm(x.titulo)||'outros'; cats[c]=(cats[c]||0)+r;
+  });
+  document.getElementById('c-total').textContent=brl(total);
+  document.getElementById('c-pp').textContent=brl(total/2);
+  document.getElementById('c-n').textContent=gastos.length?gastos.length+' lançamento'+(gastos.length>1?'s':'')+' até agora':'nenhum gasto lançado ainda';
+  document.getElementById('c-cambio').textContent='1 sol = R$ '+cambio.pen.toLocaleString('pt-BR',{minimumFractionDigits:2})+' · 1 dólar = R$ '+cambio.usd.toLocaleString('pt-BR',{minimumFractionDigits:2});
+  var lista=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a];});
+  var max=lista.length?cats[lista[0]]:1;
+  var cc=document.getElementById('c-cats');
+  cc.innerHTML=lista.length?lista.map(function(k){ return '<div class="cat"><div class="nome">'+esc(k)+'</div><div class="bar"><i data-w="'+Math.round(cats[k]/max*100)+'"></i></div><div class="val">'+brl(cats[k])+'</div></div>'; }).join('')
+    :'<div class="vazio">Os gastos aparecem aqui conforme a gente lança: combustível, hospedagem, comida, documentos, passeios.</div>';
+  setTimeout(function(){ cc.querySelectorAll('i[data-w]').forEach(function(i){ i.style.width=i.getAttribute('data-w')+'%'; }); },50);
+}
+
+/* embed do Instagram */
+var igLoading=false;
+function processaInstagram(){
+  if(!document.querySelector('.instagram-media')) return;
+  if(window.instgrm&&window.instgrm.Embeds){ window.instgrm.Embeds.process(); return; }
+  if(igLoading) return; igLoading=true;
+  var s=document.createElement('script'); s.async=true; s.src='https://www.instagram.com/embed.js';
+  s.onload=function(){ if(window.instgrm&&window.instgrm.Embeds) window.instgrm.Embeds.process(); };
+  document.body.appendChild(s);
+}
+
+/* ============ BOOT ============ */
+var ultimoHash='';
+function atualizar(){
+  carregar().then(function(linhas){
+    var h=JSON.stringify(linhas); if(h===ultimoHash) return; ultimoHash=h;
+    render(linhas);
+  }).catch(function(e){
+    console.warn('diario',e);
+    if(!ultimoHash){ document.getElementById('live-txt').textContent='Não consegui carregar o diário agora — tenta de novo daqui a pouco.'; document.getElementById('grid-diario').innerHTML='<div class="vazio">Sem conexão com o diário no momento.</div>'; document.getElementById('dias').innerHTML=ROTEIRO.map(function(r){return '<div class="dia"><div class="n">DIA '+r.d+'</div><div class="alt">↑ '+r.a+'</div><h3>'+r.t+'</h3><p>'+r.p+'</p></div>';}).join(''); }
+  });
+}
+try{ iniciaMapa(); }catch(e){ console.warn('mapa',e); }
+atualizar();
+setInterval(atualizar,REFRESH_MS);
+document.addEventListener('visibilitychange',function(){ if(!document.hidden) atualizar(); });
+
+var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } }); },{threshold:.1});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('on'); }); },1500);
+</script>
+</body>
+</html>
