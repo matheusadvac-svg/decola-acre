@@ -133,11 +133,15 @@ section.alt{background:var(--creme)}
 
 /* roteiro */
 .dias{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.dia{background:#fff;border:1px solid var(--linha);border-radius:16px;padding:16px 18px;position:relative}
+.dia{background:#fff;border:1px solid var(--linha);border-radius:16px;padding:0;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.dia .foto{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--creme)}
+.dia .corpo{padding:14px 18px 12px;position:relative;flex:1}
+.dia .cred{font-size:10.5px;color:var(--cinza);padding:0 18px 12px}
+.dia .cred a{color:var(--cinza);text-decoration:underline}
 .dia .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:13px;letter-spacing:.14em;color:var(--verde)}
 .dia h3{font-size:18px;margin:4px 0 6px;color:var(--verde-esc)}
 .dia p{margin:0;font-size:14px;color:var(--grafite)}
-.dia .alt{position:absolute;top:14px;right:14px;font-size:11.5px;font-weight:700;color:var(--cinza)}
+.dia .alt{position:absolute;top:14px;right:16px;font-size:11.5px;font-weight:700;color:var(--cinza)}
 .dia.feito{border-color:var(--verde);background:linear-gradient(0deg,rgba(11,138,61,.06),rgba(11,138,61,.06)),#fff}
 .dia.hoje{border:2px solid var(--vermelho)}
 .dia.hoje .n::after{content:"  • HOJE";color:var(--vermelho)}
@@ -239,7 +243,7 @@ footer .m{font-size:11.5px;line-height:1.6;opacity:.6;max-width:900px}
 
 <section class="alt" id="roteiro">
   <div class="wrap">
-    <div class="sec-h reveal"><h2>O roteiro <span class="grifo">planejado</span></h2><p>8 dias, saindo de Rio Branco em 7 de setembro de 2026. Sem Machu Picchu desta vez — de propósito.</p></div>
+    <div class="sec-h reveal"><h2>O roteiro <span class="grifo">planejado</span></h2><p>8 dias, saindo de Rio Branco em 7 de setembro de 2026. Sem Machu Picchu desta vez — de propósito. Fotos ilustrativas dos lugares (banco livre, com crédito); as nossas entram no guia completo.</p></div>
     <div class="dias" id="dias"></div>
   </div>
 </section>
@@ -313,16 +317,18 @@ var LUGARES = {
 };
 var ROTA = [[-9.975,-67.81],[-10.15,-67.74],[-10.57,-67.68],[-10.65,-68.50],[-10.99,-68.75],[-10.94,-69.57],[-10.955,-69.58],[-11.35,-69.55],[-12.59,-69.19],[-13.10,-70.37],[-13.23,-70.75],[-13.50,-70.95],[-13.60,-71.10],[-13.62,-71.39],[-13.69,-71.63],[-13.52,-71.97]];
 var ROTEIRO = [
-  {d:1,t:'Rio Branco → Puerto Maldonado',p:'Saída 8h pela BR-317. Carimbos em Assis Brasil e Iñapari, SOAT e SUNAT na fronteira. Noite na selva peruana.',a:'183 m'},
-  {d:2,t:'Puerto Maldonado → Cusco',p:'O dia mais longo: sobe da selva até o Abra Pirhuayani (4.725 m) e desce pra Cusco. Chegar com luz do dia.',a:'4.725 m'},
-  {d:3,t:'Aclimatação em Cusco',p:'Dia leve: centro histórico, Plaza de Armas, San Pedro, muita água e chá de coca.',a:'3.400 m'},
-  {d:4,t:'Vale Sagrado',p:'Pisac, Urubamba e Ollantaytambo, de carro, num bate-volta a partir de Cusco.',a:'2.800 m'},
-  {d:5,t:'Chinchero, Moray e Maras',p:'Terraços circulares, salinas e tecelagem. Volta pra Cusco no fim da tarde.',a:'3.700 m'},
-  {d:6,t:'Vinicunca ou dia livre',p:'A Montanha Colorida (5.000 m) se o corpo estiver bem — senão, Sacsayhuamán e mercado.',a:'5.030 m'},
-  {d:7,t:'Cusco → Puerto Maldonado (ou direto)',p:'Parada em Tipón e Andahuaylillas no caminho. Decide na hora se dorme em Puerto Maldonado ou emenda.',a:'183 m'},
-  {d:8,t:'Puerto Maldonado → Rio Branco',p:'Encerra a internação temporária do carro na SUNAT, carimbo de saída, e volta pra casa.',a:'153 m'}
+  {d:1,t:'Rio Branco → Puerto Maldonado',p:'Saída 8h pela BR-317. Carimbos em Assis Brasil e Iñapari, SOAT e SUNAT na fronteira. Noite na selva peruana.',a:'183 m',f:'Puerto_Maldonado_Madre_de_Dios_river.jpg',c:'Alet123',l:'CC BY-SA 4.0',leg:'Rio Madre de Dios, em Puerto Maldonado'},
+  {d:2,t:'Puerto Maldonado → Cusco',p:'O dia mais longo: sobe da selva até o Abra Pirhuayani (4.725 m) e desce pra Cusco. Chegar com luz do dia.',a:'4.725 m',f:'Ausangate_Peru.jpg',c:'Ausangateperu',l:'CC BY-SA 4.0',leg:'O Ausangate, que aparece na subida da Interoceânica'},
+  {d:3,t:'Aclimatação em Cusco',p:'Dia leve: centro histórico, Plaza de Armas, San Pedro, muita água e chá de coca.',a:'3.400 m',f:'Catedral,_Plaza_de_Armas,_Cusco,_Perú,_2015-07-31,_DD_77.JPG',c:'Diego Delso',l:'CC BY-SA 4.0',leg:'Catedral e Plaza de Armas, Cusco'},
+  {d:4,t:'Vale Sagrado',p:'Pisac, Urubamba e Ollantaytambo, de carro, num bate-volta a partir de Cusco.',a:'2.800 m',f:'Ollantaytambo,_Peru.jpg',c:'Bernard Gagnon',l:'CC BY-SA 3.0',leg:'Ollantaytambo'},
+  {d:5,t:'Chinchero, Moray e Maras',p:'Terraços circulares, salinas e tecelagem. Volta pra Cusco no fim da tarde.',a:'3.700 m',f:'Salineras_de_Maras,_Maras,_Perú,_2015-07-30,_DD_08.JPG',c:'Diego Delso',l:'CC BY-SA 4.0',leg:'Salineras de Maras'},
+  {d:6,t:'Vinicunca ou dia livre',p:'A Montanha Colorida (5.000 m) se o corpo estiver bem — senão, Sacsayhuamán e mercado.',a:'5.030 m',f:'Vinicunca_(Rainbow_Mountain).jpg',c:'Steve FUNG',l:'CC BY-SA 4.0',leg:'Vinicunca, a Montanha Colorida'},
+  {d:7,t:'Cusco → Puerto Maldonado (ou direto)',p:'Parada em Tipón e Andahuaylillas no caminho. Decide na hora se dorme em Puerto Maldonado ou emenda.',a:'183 m',f:'Village_Andahuaylillas.JPG',c:'Jeremyboer',l:'CC BY-SA 3.0',leg:'Andahuaylillas'},
+  {d:8,t:'Puerto Maldonado → Rio Branco',p:'Encerra a internação temporária do carro na SUNAT, carimbo de saída, e volta pra casa.',a:'153 m',f:'Ponte_da_Integração_Brasil-Peru.jpg',c:'Ricardo Stuckert/PR',l:'CC BY 3.0 BR',leg:'Ponte da Integração, Assis Brasil–Iñapari'}
 ];
-document.getElementById('dias').innerHTML=ROTEIRO.map(function(r){ return '<div class="dia"><div class="n">DIA '+r.d+'</div><div class="alt">↑ '+r.a+'</div><h3>'+r.t+'</h3><p>'+r.p+'</p></div>'; }).join('');
+function fotoUrl(f){ return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(f)+'?width=900'; }
+function fotoPag(f){ return 'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f); }
+document.getElementById('dias').innerHTML=ROTEIRO.map(function(r){ return '<div class="dia">'+(r.f?'<img class="foto" loading="lazy" src="'+fotoUrl(r.f)+'" alt="'+r.leg+'">':'')+'<div class="corpo"><div class="n">DIA '+r.d+'</div><div class="alt">↑ '+r.a+'</div><h3>'+r.t+'</h3><p>'+r.p+'</p></div>'+(r.f?'<div class="cred">'+r.leg+' · foto: <a href="'+fotoPag(r.f)+'" target="_blank" rel="noopener">'+r.c+'</a>, '+r.l+', Wikimedia Commons</div>':'')+'</div>'; }).join('');
 try {
   var mapa=L.map('mapa',{scrollWheelZoom:false});
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:18}).addTo(mapa);
