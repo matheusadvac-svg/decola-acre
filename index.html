@@ -117,6 +117,19 @@ a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
 @media (max-width:980px){ .pe-fotos{grid-template-columns:repeat(2,1fr);} .pe-duo{grid-template-columns:1fr;} .pe-ways{grid-template-columns:1fr;} }
 @media (max-width:420px){ .pe{padding:44px 4vw;} .pe-campos{grid-template-columns:1fr;} .pe-foto-t{font-size:17px;} .pe-foto-s{display:none;} .pe-aovivo{white-space:normal;} .pe-cred{font-size:8.5px; left:6px; right:6px; top:6px; text-align:center; background:rgba(43,46,40,.35);} }
 .dc-live b{color:#FFCB05;}
+.pe-head-acoes{display:flex; flex-direction:column; align-items:flex-end; gap:10px;}
+.pe-guia{display:inline-flex; align-items:center; gap:8px; background:#0A5F2C; color:#FFF8E7; font-weight:700; font-size:15px; padding:12px 22px; border-radius:99px; box-shadow:0 6px 16px rgba(10,95,44,.25); white-space:nowrap;}
+.pe-guia:hover{background:#0B8A3D; color:#FFFFFF;}
+a.pe-foto{display:block; color:#FFF8E7;}
+.pe-foto-mais{display:inline-block; margin-top:6px; font-size:12px; font-weight:700; color:#FFCB05;}
+.pe-rev-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px;}
+.pe-rev-link{color:#FFCB05; font-weight:700; font-size:14.5px; text-decoration:underline;}
+.pe-rev-link:hover{color:#FFF8E7;}
+a.pe-way-guia{background:#FFCB05; border-color:#FFCB05; color:#2B2E28; transition:transform .2s ease, box-shadow .2s ease;}
+a.pe-way-guia:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(43,46,40,.15); color:#2B2E28;}
+a.pe-way-guia .pe-way-i{background:#FFFFFF;}
+a.pe-way-guia u{font-weight:700; color:#0A5F2C;}
+@media (max-width:760px){ .pe-head-acoes{align-items:flex-start; width:100%;} }
 </style>
 
 </head>
@@ -158,7 +171,7 @@ a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
     <a class="dc-cta-topo" href="https://wa.me/5568992237929" style="background:#E4322B; color:#FFF8E7; font-weight:700; font-size:14px; padding:11px 20px; border-radius:99px; transition:transform .2s ease; white-space:nowrap; animation:pulse-cta 2.6s ease-in-out 3.4s infinite;">Falar no WhatsApp</a>
   </div>
 
-  <a href="#peru" id="dc-live" class="dc-live" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:11px 4vw; background:#0A5F2C; color:#FFF8E7; font-weight:700; font-size:14px; text-align:center; line-height:1.3;">
+  <a href="/peru" id="dc-live" class="dc-live" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:11px 4vw; background:#0A5F2C; color:#FFF8E7; font-weight:700; font-size:14px; text-align:center; line-height:1.3;">
     <span id="dc-live-txt">🇵🇪 <b>Peru:</b> Réveillon em Cusco e Machu Picchu — <span style="text-decoration:underline; color:#FFCB05;">monte sua viagem</span> →</span>
   </a>
 
@@ -294,22 +307,25 @@ a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
           <h2 id="pe-titulo">Peru: <span class="pe-grifo">Cusco e Machu Picchu</span></h2>
           <p class="pe-lead">A gente já fez esse caminho e volta pra lá de <strong>05 a 11 de novembro</strong>. Monta a sua viagem de avião ou de carro pela Interoceânica — saindo de Rio Branco ou de qualquer cidade do Brasil.</p>
         </div>
-        <a class="pe-aovivo" id="pe-aovivo" href="https://instagram.com/decolaacre" target="_blank" rel="noopener"><span class="pe-dot"></span><span id="pe-aovivo-txt">De 05 a 11/11 no Peru · siga no @decolaacre</span></a>
+        <div class="pe-head-acoes">
+          <a class="pe-guia" href="/peru">🧭 Ver o guia completo do Peru →</a>
+          <a class="pe-aovivo" id="pe-aovivo" href="https://instagram.com/decolaacre" target="_blank" rel="noopener"><span class="pe-dot"></span><span id="pe-aovivo-txt">De 05 a 11/11 no Peru · siga no @decolaacre</span></a>
+        </div>
       </div>
 
       <div class="pe-fotos">
-      <div class="pe-foto"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Machu_Picchu%2C_Per%C3%BA%2C_2015-07-30%2C_DD_47.JPG?width=700" alt="Machu Picchu, Peru" width="700" height="875">
-        <div class="pe-cred">foto: <a href="https://commons.wikimedia.org/wiki/File:Machu_Picchu%2C_Per%C3%BA%2C_2015-07-30%2C_DD_47.JPG" target="_blank" rel="noopener">Diego Delso</a>, CC BY-SA 4.0</div>
-        <div class="pe-foto-txt"><div class="pe-foto-t">Machu Picchu</div><div class="pe-foto-s">Trem até Aguas Calientes e ingresso com horário marcado.</div></div></div>
-      <div class="pe-foto"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_77.JPG?width=700" alt="Cusco, Peru" width="700" height="875">
-        <div class="pe-cred">foto: <a href="https://commons.wikimedia.org/wiki/File:Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_77.JPG" target="_blank" rel="noopener">Diego Delso</a>, CC BY-SA 4.0</div>
-        <div class="pe-foto-txt"><div class="pe-foto-t">Cusco</div><div class="pe-foto-s">Plaza de Armas, San Blas e a festa da virada.</div></div></div>
-      <div class="pe-foto"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pisac%2C_Cuzco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_100.JPG?width=700" alt="Vale Sagrado, Peru" width="700" height="875">
-        <div class="pe-cred">foto: <a href="https://commons.wikimedia.org/wiki/File:Pisac%2C_Cuzco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_100.JPG" target="_blank" rel="noopener">Diego Delso</a>, CC BY-SA 4.0</div>
-        <div class="pe-foto-txt"><div class="pe-foto-t">Vale Sagrado</div><div class="pe-foto-s">Pisac, Ollantaytambo, Maras e Moray.</div></div></div>
-      <div class="pe-foto"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vinicunca_%28Rainbow_Mountain%29.jpg?width=700" alt="Montanha Colorida, Peru" width="700" height="875">
-        <div class="pe-cred">foto: <a href="https://commons.wikimedia.org/wiki/File:Vinicunca_%28Rainbow_Mountain%29.jpg" target="_blank" rel="noopener">Steve FUNG</a>, CC BY-SA 4.0</div>
-        <div class="pe-foto-txt"><div class="pe-foto-t">Montanha Colorida</div><div class="pe-foto-s">Mirante a mais de 5.000 m, depois de aclimatar.</div></div></div>
+      <a class="pe-foto" href="/peru#passeios"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Machu_Picchu%2C_Per%C3%BA%2C_2015-07-30%2C_DD_47.JPG?width=700" alt="Machu Picchu, Peru" width="700" height="875">
+        <div class="pe-cred">foto: Diego Delso, CC BY-SA 4.0</div>
+        <div class="pe-foto-txt"><div class="pe-foto-t">Machu Picchu</div><div class="pe-foto-s">Trem até Aguas Calientes e ingresso com horário marcado.</div><span class="pe-foto-mais">ver passeios →</span></div></a>
+      <a class="pe-foto" href="/peru#passeios"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Catedral%2C_Plaza_de_Armas%2C_Cusco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_77.JPG?width=700" alt="Cusco, Peru" width="700" height="875">
+        <div class="pe-cred">foto: Diego Delso, CC BY-SA 4.0</div>
+        <div class="pe-foto-txt"><div class="pe-foto-t">Cusco</div><div class="pe-foto-s">Plaza de Armas, San Blas e a festa da virada.</div><span class="pe-foto-mais">ver passeios →</span></div></a>
+      <a class="pe-foto" href="/peru#passeios"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pisac%2C_Cuzco%2C_Per%C3%BA%2C_2015-07-31%2C_DD_100.JPG?width=700" alt="Vale Sagrado, Peru" width="700" height="875">
+        <div class="pe-cred">foto: Diego Delso, CC BY-SA 4.0</div>
+        <div class="pe-foto-txt"><div class="pe-foto-t">Vale Sagrado</div><div class="pe-foto-s">Pisac, Ollantaytambo, Maras e Moray.</div><span class="pe-foto-mais">ver passeios →</span></div></a>
+      <a class="pe-foto" href="/peru#passeios"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vinicunca_%28Rainbow_Mountain%29.jpg?width=700" alt="Montanha Colorida, Peru" width="700" height="875">
+        <div class="pe-cred">foto: Steve FUNG, CC BY-SA 4.0</div>
+        <div class="pe-foto-txt"><div class="pe-foto-t">Montanha Colorida</div><div class="pe-foto-s">Mirante a mais de 5.000 m, depois de aclimatar.</div><span class="pe-foto-mais">ver passeios →</span></div></a>
       </div>
 
       <div class="pe-duo">
@@ -322,7 +338,10 @@ a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
             <li><span class="pe-ico">🎟️</span><span><b>Machu Picchu tem limite de visitantes por dia</b> e o ingresso é vendido só no site oficial do governo peruano. A gente organiza ingresso e trem junto com a sua viagem — quanto antes, mais opção de dia e horário.</span></li>
             <li><span class="pe-ico">🌧️</span><span><b>Dezembro é época de chuva nos Andes</b> e Cusco fica a 3.400 m: o roteiro já sai com dia de aclimatação e espaço pra imprevisto do tempo.</span></li>
           </ul>
-          <a class="pe-btn" href="https://wa.me/5568992237929?text=Oi%21%20Quero%20passar%20o%20R%C3%A9veillon%20no%20Peru%20%28Cusco/Machu%20Picchu%29.%20Pode%20montar%20um%20or%C3%A7amento%3F" target="_blank" rel="noopener">Quero o Réveillon no Peru</a>
+          <div class="pe-rev-acoes">
+            <a class="pe-btn" href="https://wa.me/5568992237929?text=Oi%21%20Quero%20passar%20o%20R%C3%A9veillon%20no%20Peru%20%28Cusco/Machu%20Picchu%29.%20Pode%20montar%20um%20or%C3%A7amento%3F" target="_blank" rel="noopener">Quero o Réveillon no Peru</a>
+            <a class="pe-rev-link" href="/peru#reveillon">Tudo sobre o Réveillon em Cusco →</a>
+          </div>
         </div>
 
         <form class="pe-form" id="pe-form" onsubmit="return enviarPeru(event)" data-reveal="1" style="opacity:0; transform:translateY(24px); transition:opacity .6s ease .1s, transform .6s ease .1s;">
@@ -366,7 +385,7 @@ a { color:#0A5F2C; text-decoration:none; } a:hover { color:#0B8A3D; }
       <div class="pe-ways">
         <div class="pe-way"><div class="pe-way-i">✈️</div><div><b>De avião</b><span>Voo com conexão (normalmente em Lima) até Cusco. A gente cota as combinações na consolidadora e manda o total por escrito.</span></div></div>
         <div class="pe-way"><div class="pe-way-i">🚗</div><div><b>De carro</b><span>~1.050 km por trecho pela BR-317 e a Interoceânica, cruzando em Assis Brasil. Foi o caminho que a gente fez.</span></div></div>
-        <div class="pe-way"><div class="pe-way-i">🧭</div><div><b>Guia completo</b><span>Rota no mapa, documentos da fronteira, altitude e os passeios a partir de Cusco. <a href="/peru">Ver o guia do Peru →</a></span></div></div>
+        <a class="pe-way pe-way-guia" href="/peru"><div class="pe-way-i">🧭</div><div><b>Guia completo do Peru</b><span>Rota no mapa, documentos da fronteira, altitude e os passeios a partir de Cusco. <u>Abrir o guia →</u></span></div></a>
       </div>
       <div class="pe-nota">Informações de referência, sem preço. Regras de entrada, ingressos e horários mudam — a gente confere tudo na hora de montar a sua viagem. Fotos: Wikimedia Commons, com crédito em cada imagem.</div>
     </div>
