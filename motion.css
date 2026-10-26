@@ -1,0 +1,84 @@
+/* Decola Acre — camada de movimento (home e /peru)
+   Tudo aqui é decorativo: se este arquivo não carregar, o site continua igual. */
+
+/* barra de progresso da leitura */
+.mo-progresso{position:fixed;top:0;left:0;right:0;height:3px;z-index:200;pointer-events:none;
+  background:linear-gradient(90deg,#FFCB05,#0B8A3D);transform-origin:0 50%;transform:scaleX(0)}
+
+/* brilho que passa nos botões principais */
+.dc-cta-topo,.pe-btn,.btn,.pe-guia,.pe-enviar,.peform button{position:relative;overflow:hidden;isolation:isolate}
+.dc-cta-topo::after,.pe-btn::after,.btn::after,.pe-guia::after,.pe-enviar::after,.peform button::after{
+  content:"";position:absolute;top:-50%;bottom:-50%;width:40%;left:-60%;z-index:-1;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-20deg);
+  animation:mo-brilho 4.2s ease-in-out 2s infinite}
+@keyframes mo-brilho{0%{left:-60%}28%,100%{left:130%}}
+
+/* grifo amarelo que "pinta" quando aparece na tela */
+html.mo .pe-grifo::before,html.mo .grifo::before{transform:scaleX(0);transform-origin:0 50%;transition:transform .9s cubic-bezier(.65,0,.35,1) .25s}
+html.mo .pe-grifo.mo-on::before,html.mo .grifo.mo-on::before{transform:scaleX(1)}
+
+/* faixa de destinos correndo */
+.mo-ticker{overflow:hidden;background:#0A5F2C;color:#FFF8E7;border-top:1px solid rgba(255,248,231,.12);border-bottom:1px solid rgba(255,248,231,.12)}
+.mo-ticker-trilho{display:flex;width:max-content;animation:mo-corre 48s linear infinite}
+.mo-ticker:hover .mo-ticker-trilho{animation-play-state:paused}
+.mo-ticker-item{display:flex;align-items:center;gap:14px;padding:11px 0 11px 14px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em;white-space:nowrap}
+.mo-ticker-item i{font-style:normal;color:#FFCB05;font-size:13px}
+.mo-ticker-item b{color:#FFCB05}
+@keyframes mo-corre{to{transform:translateX(-50%)}}
+
+/* avião em loop no vídeo do topo + zoom lento do vídeo */
+.mo-hero-video{animation:mo-kenburns 22s ease-in-out infinite alternate}
+@keyframes mo-kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
+.mo-rota-hero{position:absolute;inset:0;pointer-events:none}
+.mo-rota-hero path{fill:none;stroke:rgba(255,248,231,.55);stroke-width:2;stroke-dasharray:6 9;animation:mo-tracejado 1.6s linear infinite}
+@keyframes mo-tracejado{to{stroke-dashoffset:-30}}
+.mo-aviao{position:absolute;left:0;top:0;width:34px;height:34px;pointer-events:none;
+  offset-rotate:auto 45deg;animation:mo-voa 11s ease-in-out infinite;filter:drop-shadow(0 3px 6px rgba(0,0,0,.3))}
+@keyframes mo-voa{0%{offset-distance:0%;opacity:0}6%{opacity:1}88%{opacity:1}100%{offset-distance:100%;opacity:0}}
+
+/* fotos com zoom lento contínuo (Ken Burns) */
+.pe-foto img{animation:mo-kenburns 16s ease-in-out infinite alternate}
+.pe-foto:nth-child(2) img{animation-delay:-5s}
+.pe-foto:nth-child(3) img{animation-delay:-9s}
+.pe-foto:nth-child(4) img{animation-delay:-13s}
+
+/* cartões que entram em cascata e sobem no hover */
+html.mo .mo-cascata>*{opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+html.mo .mo-cascata.mo-on>*{opacity:1;transform:none}
+.mo-card{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease !important}
+.mo-card:hover{transform:translateY(-6px) !important;box-shadow:0 14px 30px rgba(43,46,40,.18) !important}
+.mo-card img{transition:transform .8s ease}
+.mo-card:hover img{transform:scale(1.07)}
+
+/* perfil de altitude Rio Branco → Cusco */
+.mo-perfil{position:relative;background:#0A5F2C;border-radius:20px;padding:18px 18px 10px;color:#FFF8E7;overflow:hidden}
+.mo-perfil-t{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;align-items:baseline;margin-bottom:6px}
+.mo-perfil-t b{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px}
+.mo-perfil-t span{font-size:12.5px;opacity:.8}
+.mo-perfil svg{display:block;width:100%;height:auto;overflow:visible}
+.mo-perfil .area{fill:url(#mo-grad);opacity:0;transition:opacity 1.2s ease 1.6s}
+.mo-perfil.mo-on .area{opacity:1}
+.mo-perfil .linha{fill:none;stroke:#FFCB05;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.mo-perfil .rotulo{opacity:0;transition:opacity .5s ease}
+.mo-perfil .rotulo.mo-on{opacity:1}
+.mo-perfil .rotulo text{fill:#FFF8E7;font-family:'Karla',sans-serif;font-size:13px;font-weight:700}
+.mo-perfil .rotulo text.m{fill:#FFCB05;font-family:'Baloo 2',sans-serif;font-size:15px;font-weight:800}
+.mo-perfil .rotulo line{stroke:rgba(255,248,231,.35);stroke-dasharray:3 4}
+.mo-perfil .nota{font-size:11px;opacity:.6;margin-top:2px}
+@media (max-width:660px){.mo-perfil .rotulo text{font-size:20px}.mo-perfil .rotulo text.m{font-size:23px}.mo-perfil{padding:14px 12px 8px}}
+
+/* fogos no cartão do Réveillon */
+.mo-fogos{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.pe-rev>*:not(.mo-fogos):not(.pe-rev-sol),.rev>*:not(.mo-fogos):not(.sol){position:relative;z-index:1}
+
+/* montanhas em camadas no topo do /peru */
+.mo-montanhas{position:absolute;left:0;right:0;bottom:-1px;height:120px;pointer-events:none}
+.mo-montanhas svg{position:absolute;left:-5%;bottom:0;width:110%;height:100%;will-change:transform}
+
+/* quem prefere menos movimento: desliga tudo que se mexe sozinho */
+@media (prefers-reduced-motion:reduce){
+  .mo-ticker-trilho,.mo-hero-video,.mo-aviao,.mo-rota-hero path,.pe-foto img,
+  .dc-cta-topo::after,.pe-btn::after,.btn::after,.pe-guia::after,.pe-enviar::after,.peform button::after{animation:none !important}
+  .mo-aviao,.mo-rota-hero,.mo-fogos{display:none}
+  html.mo .mo-cascata>*{opacity:1;transform:none}
+}

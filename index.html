@@ -132,6 +132,7 @@ a.pe-way-guia u{font-weight:700; color:#0A5F2C;}
 @media (max-width:760px){ .pe-head-acoes{align-items:flex-start; width:100%;} }
 </style>
 
+<link rel="stylesheet" href="/motion.css">
 </head>
 <body>
 <a href="https://wa.me/5568992237929?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20pacote%20saindo%20de%20Rio%20Branco." target="_blank" aria-label="Falar no WhatsApp" style="position:fixed; right:18px; bottom:18px; z-index:150; width:58px; height:58px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(43,46,40,.35); animation:pulse-cta 2.6s ease-in-out 2s infinite;">
@@ -326,6 +327,11 @@ a.pe-way-guia u{font-weight:700; color:#0A5F2C;}
       <a class="pe-foto" href="/peru#passeios"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vinicunca_%28Rainbow_Mountain%29.jpg?width=700" alt="Montanha Colorida, Peru" width="700" height="875">
         <div class="pe-cred">foto: Steve FUNG, CC BY-SA 4.0</div>
         <div class="pe-foto-txt"><div class="pe-foto-t">Montanha Colorida</div><div class="pe-foto-s">Mirante a mais de 5.000 m, depois de aclimatar.</div><span class="pe-foto-mais">ver passeios →</span></div></a>
+      </div>
+
+      <div class="mo-perfil" data-perfil-alt>
+        <div class="mo-perfil-t"><b>De carro, a estrada sobe os Andes</b><span>Rio Branco → Cusco · ~1.050 km · dois dias de estrada</span></div>
+        <div class="nota">Perfil aproximado da BR-317 + Interoceânica. <a href="/peru#rota" style="color:#FFCB05">Ver a rota no mapa →</a></div>
       </div>
 
       <div class="pe-duo">
@@ -614,5 +620,6 @@ function enviarPeru(ev){
 var vv = document.querySelector('video');
 if (vv) { vv.muted = true; var p = vv.play(); if (p && p.catch) p.catch(function(){}); }
 </script>
+<script src="/motion.js" defer></script>
 </body>
 </html>
